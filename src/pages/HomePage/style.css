@@ -1,0 +1,7 @@
+table {
+  background-color: black;
+  color: white;
+}
+table > tbody > tr td {
+  padding: 20px;
+}

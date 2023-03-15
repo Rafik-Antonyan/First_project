@@ -1,11 +1,14 @@
 name: Build & deploy
 on: [push, workflow_dispatch]
+env: 
+  CI: false
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - name: Install deps
         run: npm ci
       - name: Build project
@@ -14,7 +17,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Get build project
-        uses: actions/download-artifact@v3
-        with:
-          name: build-files
+      - name: Get code
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3

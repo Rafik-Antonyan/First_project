@@ -28,8 +28,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependecies
         run: npm ci
-      # - name: Test application
-      #   run: npx cypress run --e2e
+      
       - name: Run E2E tests
         uses: cypress-io/github-action@v2.11.2
         with:
@@ -38,6 +37,8 @@ jobs:
           headless: true
           start: npm start
           wait-on: 'http://localhost:3000'
+          - name: Test application
+            run: npx cypress run --e2e
   build:
     needs: [test-unit, test-component, test-e2e]
     runs-on: ubuntu-latest

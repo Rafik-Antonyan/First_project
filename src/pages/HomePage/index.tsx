@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   const { users, isRequest, error, deleteUser } = useUsers();
   
   return (
-    <div>
+    <div data-testid="unit-test">
       {!isRequest && !error && (
         <DynamicTable
           tableData={users}

@@ -3,16 +3,49 @@ on: [push, workflow_dispatch]
 env: 
   CI: false
 jobs:
-  build:
+  test-unit: 
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: Get repository code
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - name: Install deps
+      - name: Install dependecies
         run: npm ci
-      - name: Build project
+      - name: Test application
+        run: npm run test
+  test-component:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci
+      - name: Test application
+        run: npx cypress run --component
+  test-e2e: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci
+      - name: Test application
+        run: npx cypress run --e2e
+  build:
+    needs: [test-unit, test-component, test-e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci
+      - name: Test application
+        run: npm run test
+      - name: Lint application
+        run: npm run lint
+      - name: Build application
         run: npm run build
+      - name: Deploy
+        run: echo Deploying...
   deploy:
     needs: build
     runs-on: ubuntu-latest

@@ -27,7 +27,8 @@
     "cypress": "npx cypress open",
     "cypress:component": "npx cypress --component",
     "test:cypress": "start-server-and-test start http://localhost:3000 cypress",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint ./src"
   },
   "eslintConfig": {
     "extends": [
